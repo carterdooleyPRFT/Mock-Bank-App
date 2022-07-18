@@ -26,13 +26,13 @@ public class Branch {
         return zipCode;
     }
 
-    public boolean addUser(String userName, Double initialTransaction) {
-        User newUser = new User(userName, initialTransaction);
+    public boolean addUser(String userName, Double initialTransaction, String passWord) {
+        User newUser = new User(userName, initialTransaction, passWord);
         ArrayList<String> usersNameList = new ArrayList<>();
         usersNameList = getUsersNames();
 
         if (usersNameList.contains(userName)) {
-            System.out.print("This User Already Exists in this Branch");
+            System.out.println("This User Already Exists in this Branch");
             return false;
         } else {
             usersList.add(newUser);
@@ -50,7 +50,7 @@ public class Branch {
             userName = usersList.get(i).getUserName();
             usersNamesList.add(userName);
         }
-        System.out.print(usersNamesList);
+        System.out.println(usersNamesList);
         return usersNamesList;
     }
 

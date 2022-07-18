@@ -31,7 +31,7 @@ public class Bank {
             branchName = branches.get(i).getName();
             branchesNamesList.add(branchName);
         }
-        System.out.print(branchesNamesList);
+        System.out.println(branchesNamesList);
         return branchesNamesList;
     }
 

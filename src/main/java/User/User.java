@@ -6,13 +6,15 @@ public class User {
 
     private String userName;
     private final Double initialTransaction;
+    private String passWord;
     private Double accountTotal;
     private ArrayList<Double> transactions = new ArrayList<Double>();
 
 
-    public User(String userName, Double initialTransaction) {
+    public User(String userName, Double initialTransaction, String passWord) {
         this.userName = userName;
         this.initialTransaction = initialTransaction;
+        this.passWord = passWord;
         accountTotal = initialTransaction;
     }
 
@@ -36,6 +38,7 @@ public class User {
         }
     }
 
-
-
+    public Double getAccountTotal() {
+        return accountTotal;
+    }
 }
