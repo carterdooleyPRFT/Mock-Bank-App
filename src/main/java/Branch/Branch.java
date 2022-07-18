@@ -26,7 +26,7 @@ public class Branch {
         return zipCode;
     }
 
-    public boolean addUser(String userName, double initialTransaction) {
+    public boolean addUser(String userName, Double initialTransaction) {
         User newUser = new User(userName, initialTransaction);
         ArrayList<String> usersNameList = new ArrayList<>();
         usersNameList = getUsersNames();
@@ -54,6 +54,18 @@ public class Branch {
         return usersNamesList;
     }
 
+
+    public User getUser(String userName) {
+        for (int i = 0; i < usersList.size(); i++) {
+            if (usersList.get(i).getUserName().equalsIgnoreCase(userName)) {
+                return usersList.get(i);
+            } else {
+                continue;
+            }
+        }
+        System.out.println("User " + userName + " not found");
+        return null;
+    }
 
 
 }
