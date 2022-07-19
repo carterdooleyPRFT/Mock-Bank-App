@@ -12,7 +12,7 @@ public class Bank {
 
     public boolean addBranch(String branchName, int branchZipcode) {
         Branch newBranch = new Branch(branchName, branchZipcode);
-        ArrayList<String> branchNameList = new ArrayList<>();
+        ArrayList<String> branchNameList;
         branchNameList = getBranchesNames();
         if (branchNameList.contains(branchName)) {
             System.out.println("This branch already exists");

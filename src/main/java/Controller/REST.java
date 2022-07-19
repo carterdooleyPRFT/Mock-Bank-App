@@ -9,8 +9,20 @@ public class REST {
 
     @RequestMapping("/")
     public String home() {
-        return "/home";
+        return "home";
     }
+
+    @RequestMapping("/createaccount")
+    public String createAccount() {
+        return "createaccount";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
 
 
 
