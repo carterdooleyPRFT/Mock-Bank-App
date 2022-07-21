@@ -1,19 +1,12 @@
 package JDBCqueries;
 
-import User.User;
-
-import javax.xml.transform.Result;
 import java.io.FileReader;
 import java.sql.*;
-import java.util.Objects;
 import java.util.Properties;
 
-public class JDBCuser {
+public class JDBCbranches {
 
-
-
-
-    public void createUserTable() {
+    public void createBranchesTable() {
         try {
             Properties prop = new Properties();
 
@@ -53,8 +46,8 @@ public class JDBCuser {
                 System.out.println("Database Version : " + dbVersion);
 
                 Statement statement = dbConn.createStatement();
-                statement.execute("CREATE TABLE IF NOT EXISTS users" +
-                        "(user_name TEXT, password TEXT, account_total DOUBLE PRECISION)");
+                statement.execute("CREATE TABLE IF NOT EXISTS branches" +
+                        "(name TEXT, users TEXT, zipcode INTEGER)");
 
                 statement.close();
                 dbConn.close();
@@ -68,10 +61,7 @@ public class JDBCuser {
 
     }
 
-    public void newUser(User newUser) {
-        String userName = newUser.getUserName();
-        String password = newUser.getPassWord();
-        double initTransaction = newUser.getInitialTransaction();
+    public void insertBranches(String branchName, int zipcode) {
         try {
             Properties prop = new Properties();
 
@@ -110,12 +100,13 @@ public class JDBCuser {
 
                 System.out.println("Database Version : " + dbVersion);
 
-                PreparedStatement statement = dbConn.prepareStatement("INSERT INTO users (user_name, password, account_total) VALUES(?, ?, ?)");
-                statement.setString(1,userName);
-                statement.setString(2, password);
-                statement.setDouble(3,initTransaction);
+                PreparedStatement statement = dbConn.prepareStatement("INSERT INTO branches (name, zipcode) VALUES(?, ?)");
+                statement.setString(1, branchName);
+                statement.setInt(2,zipcode);
                 statement.executeUpdate();
 
+
+                System.out.println("Branch " + branchName + " with zipcode " + zipcode + " successfully added");
                 statement.close();
                 dbConn.close();
 
@@ -128,7 +119,7 @@ public class JDBCuser {
 
     }
 
-    public boolean loginUser(String username, String password) {
+    public boolean getBranch (String name, int zipcode) {
         try {
             Properties prop = new Properties();
 
@@ -167,97 +158,31 @@ public class JDBCuser {
 
                 System.out.println("Database Version : " + dbVersion);
 
-                PreparedStatement statement = dbConn.prepareStatement("SELECT password FROM users WHERE user_name =  '" + username.trim() + "'");
+                PreparedStatement statement = dbConn.prepareStatement("SELECT *  FROM branches WHERE zipcode =  '" + zipcode + "'");
                 statement.execute();
                 ResultSet result = statement.getResultSet();
-                result.next();
-                String checkPassword = result.getString("password");
+                while(result.next()) {
+                    String checkName = result.getString("name");
+                    System.out.print("List of branch names:" + checkName);
 
-                statement.close();
-                dbConn.close();
 
-                if (Objects.equals(checkPassword, password)){
-                    System.out.print("User " + username + " Logged in");
-                        return true;
-                    } else {
-                        System.out.print("User not Found: Invalid password: " + checkPassword + " " + password);
+                    if (checkName.equals(name)) {
+                        System.out.println("Branch Already Exist");
+                        statement.close();
+                        dbConn.close();
+                        return false;
                     }
                 }
 
 
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
-        return false;
-    }
-
-
-
-
-
-    public double getAccountBalance(String username) {
-
-
-        try {
-            Properties prop = new Properties();
-
-            String dbPropertiesFile = "src/main/JDBC/DBconfig.properties";
-
-            FileReader fileReader = new FileReader(dbPropertiesFile);
-
-            prop.load(fileReader);
-
-
-            String dbDriverClass = prop.getProperty("db.driver.class");
-
-            String dbConnUrl = prop.getProperty("db.conn.url");
-
-            String dbUserName = prop.getProperty("db.username");
-
-            String dbPassword = prop.getProperty("db.password");
-
-            if (!"".equals(dbDriverClass) && !"".equals(dbConnUrl)) {
-                /* Register jdbc driver class. */
-                Class.forName(dbDriverClass);
-
-                // Get database connection object.
-                Connection dbConn = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
-
-                // Get dtabase meta data.
-                DatabaseMetaData dbMetaData = dbConn.getMetaData();
-
-                // Get database name.
-                String dbName = dbMetaData.getDatabaseProductName();
-
-                // Get database version.
-                String dbVersion = dbMetaData.getDatabaseProductVersion();
-
-                System.out.println("Database Name : " + dbName);
-
-                System.out.println("Database Version : " + dbVersion);
-
-                PreparedStatement statement = dbConn.prepareStatement("SELECT account_total FROM users WHERE user_name =  '" + username.trim() + "'");
-                statement.execute();
-                ResultSet result = statement.getResultSet();
-                result.next();
-                double account_total = Double.parseDouble(result.getString("account_total"));
-                statement.close();
-                dbConn.close();
-                return account_total;
-
-
-
-
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
 
-        return 0;
+        return true;
     }
 
 

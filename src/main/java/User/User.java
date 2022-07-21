@@ -1,5 +1,7 @@
 package User;
 
+import JDBCqueries.JDBCuser;
+
 import java.util.ArrayList;
 
 public class User {
@@ -16,6 +18,7 @@ public class User {
         this.initialTransaction = initialTransaction;
         this.passWord = passWord;
         accountTotal = initialTransaction;
+        transactions.add(initialTransaction);
     }
 
     public String getUserName() {
@@ -29,6 +32,8 @@ public class User {
     public Double getInitialTransaction() {
         return initialTransaction;
     }
+
+
 
     public ArrayList<Double> getTransactions() {
         return transactions;

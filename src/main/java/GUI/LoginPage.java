@@ -29,7 +29,7 @@ public class LoginPage {
                 Boolean passed = loginUser.loginUser(loginUserName, loginPassword);
 
                 if (passed == true) {
-                     new LoggedInHome();
+                     new LoggedInHome(loginUserName);
                 }
 
 
