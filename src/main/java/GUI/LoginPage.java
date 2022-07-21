@@ -1,7 +1,12 @@
 package GUI;
 
+import JDBCqueries.JDBCuser;
+import User.User;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginPage {
 
@@ -9,9 +14,43 @@ public class LoginPage {
     JButton submit = new JButton(" Submit Login");
     JTextField username = new JTextField("Username");
     JPasswordField password = new JPasswordField("Password");
+    JButton home = new JButton("Home");
 
 
     public LoginPage() {
+
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String loginUserName = username.getText();
+                String loginPassword = String.valueOf(password.getPassword());
+
+                JDBCuser loginUser = new JDBCuser();
+                Boolean passed = loginUser.loginUser(loginUserName, loginPassword);
+
+                if (passed == true) {
+                     new LoggedInHome();
+                }
+
+
+            }
+        });
+
+        home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new HomePage();
+            }
+        });
+
+
+
+
+
+
+
+
+
         loginPage.setSize(350, 250);
         loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginPage.setResizable(true);
@@ -19,6 +58,7 @@ public class LoginPage {
         loginPage.add(username);
         loginPage.add(password);
         loginPage.add(submit);
+        loginPage.add(home);
         loginPage.setVisible(true);
     }
 

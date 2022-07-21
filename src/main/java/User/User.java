@@ -22,6 +22,18 @@ public class User {
         return userName;
     }
 
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public Double getInitialTransaction() {
+        return initialTransaction;
+    }
+
+    public ArrayList<Double> getTransactions() {
+        return transactions;
+    }
+
     public void depositFunds(Double amountToAdd){
         accountTotal += amountToAdd;
         transactions.add(amountToAdd);
