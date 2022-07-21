@@ -1,5 +1,6 @@
 package GUI;
 
+import JDBCqueries.JDBCbranches;
 import JDBCqueries.JDBCuser;
 import User.User;
 
@@ -30,10 +31,20 @@ public class CreateAccount {
 
 
 
+                if (new JDBCuser().getUser(newUserName) == true) {
+                    User newUser = new User(newUserName, newInitialTransaction, newPassword);
+                    JDBCuser insUserData = new JDBCuser();
+                    insUserData.newUser(newUser);
+                    System.out.println("User " + newUserName + " Successfully created");
+                } else {
+                    System.out.println("User With that name Already exist");
+                }
 
-                User newUser = new User(newUserName, newInitialTransaction, newPassword);
-                JDBCuser insUserData = new JDBCuser();
-                insUserData.newUser(newUser);
+
+
+
+
+
             }
         });
 

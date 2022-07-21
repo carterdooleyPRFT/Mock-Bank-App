@@ -263,6 +263,74 @@ public class JDBCuser {
 
 
 
+    public boolean getUser (String name) {
+        try {
+            Properties prop = new Properties();
+
+            String dbPropertiesFile = "src/main/JDBC/DBconfig.properties";
+
+            FileReader fileReader = new FileReader(dbPropertiesFile);
+
+            prop.load(fileReader);
+
+
+            String dbDriverClass = prop.getProperty("db.driver.class");
+
+            String dbConnUrl = prop.getProperty("db.conn.url");
+
+            String dbUserName = prop.getProperty("db.username");
+
+            String dbPassword = prop.getProperty("db.password");
+
+            if (!"".equals(dbDriverClass) && !"".equals(dbConnUrl)) {
+                /* Register jdbc driver class. */
+                Class.forName(dbDriverClass);
+
+                // Get database connection object.
+                Connection dbConn = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
+
+                // Get dtabase meta data.
+                DatabaseMetaData dbMetaData = dbConn.getMetaData();
+
+                // Get database name.
+                String dbName = dbMetaData.getDatabaseProductName();
+
+                // Get database version.
+                String dbVersion = dbMetaData.getDatabaseProductVersion();
+
+                System.out.println("Database Name : " + dbName);
+
+                System.out.println("Database Version : " + dbVersion);
+
+                PreparedStatement statement = dbConn.prepareStatement("SELECT *  FROM users");
+                statement.execute();
+                ResultSet result = statement.getResultSet();
+                while(result.next()) {
+                    String checkName = result.getString("user_name");
+                    System.out.println("User: " + checkName);
+
+
+                    if (checkName.equals(name)) {
+                        statement.close();
+                        dbConn.close();
+                        return false;
+                    }
+                }
+
+
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        return true;
+    }
+
+
+
+
 
 
 }
