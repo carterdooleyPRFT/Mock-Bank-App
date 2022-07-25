@@ -10,10 +10,12 @@ public class User {
     private final Double initialTransaction;
     private String passWord;
     private Double accountTotal;
+    private int branchID;
     private ArrayList<Double> transactions = new ArrayList<Double>();
 
 
-    public User(String userName, Double initialTransaction, String passWord) {
+    public User(String userName, Double initialTransaction, String passWord, int branchID) {
+        this.branchID = branchID;
         this.userName = userName;
         this.initialTransaction = initialTransaction;
         this.passWord = passWord;

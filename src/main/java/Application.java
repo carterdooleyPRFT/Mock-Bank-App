@@ -14,8 +14,15 @@ public class Application {
         new HomePage();
         JDBCuser seedUser = new JDBCuser();
         JDBCbranches seedBranches = new JDBCbranches();
-        seedUser.createUserTable();
+//
         seedBranches.createBranchesTable();
+        seedUser.createUserTable();
+////        seedBranches.insertBranches("Section 704", 70401);
+//        seedUser.getUser();
+//        seedUser.dropUsersTable();
+//        seedBranches.deleteBranchesTable();
+
+
 
     }
 }

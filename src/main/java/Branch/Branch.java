@@ -26,8 +26,8 @@ public class Branch {
         return zipCode;
     }
 
-    public boolean addUser(String userName, Double initialTransaction, String passWord) {
-        User newUser = new User(userName, initialTransaction, passWord);
+    public boolean addUser(String userName, Double initialTransaction, String passWord, int branchID) {
+        User newUser = new User(userName, initialTransaction, passWord, branchID);
         ArrayList<String> usersNameList = new ArrayList<>();
         usersNameList = getUsersNames();
 

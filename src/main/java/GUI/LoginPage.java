@@ -30,6 +30,7 @@ public class LoginPage {
 
                 if (passed == true) {
                      new LoggedInHome(loginUserName);
+
                 }
 
 
@@ -60,6 +61,8 @@ public class LoginPage {
         loginPage.add(submit);
         loginPage.add(home);
         loginPage.setVisible(true);
+
+        loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
 
