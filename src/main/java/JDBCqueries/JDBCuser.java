@@ -54,7 +54,7 @@ public class JDBCuser {
 
                 Statement statement = dbConn.createStatement();
                 statement.execute("CREATE TABLE IF NOT EXISTS users" +
-                        "(user_name TEXT, password TEXT, account_total DOUBLE PRECISION,branch_id INTEGER, FOREIGN KEY(branch_id) REFERENCES branches(branch_id))");
+                        "(user_name TEXT NOT NULL, password TEXT, account_total DOUBLE PRECISION,branch_id INTEGER, FOREIGN KEY(branch_id) REFERENCES branches(branch_id))");
 
                 statement.close();
                 dbConn.close();
@@ -71,6 +71,7 @@ public class JDBCuser {
     public void newUser(User newUser) {
         String userName = newUser.getUserName();
         String password = newUser.getPassWord();
+        int branchID = newUser.getBranchID();
         double initTransaction = newUser.getInitialTransaction();
         try {
             Properties prop = new Properties();
@@ -114,7 +115,7 @@ public class JDBCuser {
                 statement.setString(1,userName);
                 statement.setString(2, password);
                 statement.setDouble(3,initTransaction);
-                statement.setInt(4, 1);
+                statement.setInt(4, branchID);
                 statement.executeUpdate();
 
                 statement.close();

@@ -31,6 +31,10 @@ public class User {
         return passWord;
     }
 
+    public int getBranchID() {
+        return branchID;
+    }
+
     public Double getInitialTransaction() {
         return initialTransaction;
     }

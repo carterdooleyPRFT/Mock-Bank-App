@@ -10,15 +10,20 @@ import java.util.Properties;
 
 public class Application {
 
+    //Next to do: functional - fix error where user can be created even if branch is not found
+
     public static void main(String[] args) throws SQLException {
         new HomePage();
         JDBCuser seedUser = new JDBCuser();
         JDBCbranches seedBranches = new JDBCbranches();
-//
+
         seedBranches.createBranchesTable();
         seedUser.createUserTable();
-////        seedBranches.insertBranches("Section 704", 70401);
-//        seedUser.getUser();
+        seedBranches.insertBranches("Section 704", 70401);
+        seedBranches.insertBranches("Section 705", 70592);
+//        seedBranches.insertBranches("Section 701", 70192);
+//        seedBranches.insertBranches("Section 702", 70292);
+//       seedUser.getUser();
 //        seedUser.dropUsersTable();
 //        seedBranches.deleteBranchesTable();
 

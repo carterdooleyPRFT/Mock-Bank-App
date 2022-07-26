@@ -8,7 +8,6 @@ import java.util.Properties;
 public class JDBCbranches {
 
 
-    // Current state 7/25: Will need function for comparing names to return true if they match, false if not; for declaring branch connected to account when creating account.
 
     public void createBranchesTable() {
         try {
@@ -353,7 +352,7 @@ public class JDBCbranches {
                 statement.execute();
                 ResultSet result = statement.getResultSet();
                 while(result.next()) {
-                    int branchId = Integer.parseInt(result.getString("name"));
+                    int branchId = Integer.parseInt(result.getString("branch_id"));
                     return branchId;
 
 

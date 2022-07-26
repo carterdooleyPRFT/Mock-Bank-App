@@ -14,9 +14,6 @@ public class CreateAccount {
 
 
 
-//    Current State of creating an account:
-//    Can list current branches in branches table, but checkbox feature does not work
-//    Idea: Create text box to type in branch for creating account, and have the app list the possible branches, if no available branch is typed then error pop up.
 
     JFrame createAccount = new JFrame("Create Account");
     JButton submit = new JButton(" Create Account");
@@ -24,17 +21,18 @@ public class CreateAccount {
     JPasswordField createPassword = new JPasswordField("Password");
     JTextField initialTransaction = new JTextField("Enter First Deposit Amount");
     JButton login = new JButton("Login");
-    JPopupMenu branchChoice = new JPopupMenu("Choose Your Branch");
+    JTextField branchChoice = new JTextField("Enter Branch");
 
     int branchIdForNewUser;
     final JDBCbranches getNames = new JDBCbranches();
-    final JCheckBoxMenuItem menuChoice = new JCheckBoxMenuItem();
+
 
     public void createBranchesCheckBox (){
 
         ArrayList<String> branchNames = getNames.getAllBranchNames();
         for (int i = 0; i < branchNames.size(); i++){
-            final JCheckBoxMenuItem menuChoice = new JCheckBoxMenuItem(branchNames.get(i));
+            final JList menuChoice = new JList();
+
             branchChoice.add(menuChoice);
 
 
@@ -45,7 +43,9 @@ public class CreateAccount {
 
     public CreateAccount() {
 
-
+        ArrayList<String> branches = new ArrayList<>();
+        branches = new JDBCbranches().getAllBranchNames();
+        final ArrayList<String> finalBranches = branches;
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,25 +56,42 @@ public class CreateAccount {
 
                 String newUserName = createUsername.getText();
                 String newPassword = String.valueOf(createPassword.getPassword());
-                int branchID = branchIdForNewUser;
+                String branchName = branchChoice.getText();
+
+
+
+                int conditioner = 0;
+                for (int i = 0; i < finalBranches.size(); i++) {
+                    if (finalBranches.get(i).trim().equals(branchName.trim())){
+                        System.out.println("Successfully Found Branch " + branchName);
+                        conditioner = 1;
+                        break;
+
+                    }
+                    System.out.println("Could not find branch with name " + branchName);
+                }
+
+                if (conditioner == 0) {
+                    newUserName = null;
+                }
+
                 System.out.println(newPassword);
                 double newInitialTransaction = Double.parseDouble(initialTransaction.getText());
 
-                menuChoice.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println(menuChoice.getText() + " Has Been Chosen");
-                        branchIdForNewUser =  getNames.getBranchID(menuChoice.getText());
-                    }
-                });
 
 
 
-                if (new JDBCuser().getUser(newUserName) == true) {
+                final int branchID = new JDBCbranches().getBranchID(branchName);
+
+
+                if (new JDBCuser().getUser(newUserName) == true && newUserName != null) {
+
                     User newUser = new User(newUserName, newInitialTransaction, newPassword, branchID);
                     JDBCuser insUserData = new JDBCuser();
                     insUserData.newUser(newUser);
                     System.out.println("User " + newUserName + " Successfully created");
+                } else if (newUserName == null){
+                    System.out.println("Please Enter Username or Enter Correct Branch Name");
                 } else {
                     System.out.println("User With that name Already exist");
                 }
@@ -108,6 +125,11 @@ public class CreateAccount {
         createAccount.add(createPassword);
         createAccount.add(initialTransaction);
         createAccount.add(branchChoice);
+        for (int i = 0; i < branches.size(); i++){
+            JLabel names = new JLabel(branches.get(i));
+            createAccount.add(names);
+        }
+
         createBranchesCheckBox();
         createAccount.add(submit);
         createAccount.add(login);
