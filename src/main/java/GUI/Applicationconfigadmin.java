@@ -26,7 +26,7 @@ public class Applicationconfigadmin {
         addBranch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (new JDBCbranches().getBranch(branchName.getText(), Integer.parseInt(zipcode.getText())) == true) {
+                if (new JDBCbranches().getBranch(branchName.getText(), Integer.parseInt(zipcode.getText()))) {
                     new JDBCbranches().insertBranches(branchName.getText(), Integer.parseInt(zipcode.getText()));
                 }
             }

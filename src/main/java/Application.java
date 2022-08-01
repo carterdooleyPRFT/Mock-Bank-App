@@ -19,8 +19,8 @@ public class Application {
 
         seedBranches.createBranchesTable();
         seedUser.createUserTable();
-        seedBranches.insertBranches("Section 704", 70401);
-        seedBranches.insertBranches("Section 705", 70592);
+//        seedBranches.insertBranches("Section 704", 70401);
+//        seedBranches.insertBranches("Section 705", 70592);
 //        seedBranches.insertBranches("Section 701", 70192);
 //        seedBranches.insertBranches("Section 702", 70292);
 //       seedUser.getUser();

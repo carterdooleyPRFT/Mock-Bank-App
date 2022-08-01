@@ -84,7 +84,7 @@ public class CreateAccount {
                 final int branchID = new JDBCbranches().getBranchID(branchName);
 
 
-                if (new JDBCuser().getUser(newUserName) == true && newUserName != null) {
+                if (new JDBCuser().getUser(newUserName) && newUserName != null) {
 
                     User newUser = new User(newUserName, newInitialTransaction, newPassword, branchID);
                     JDBCuser insUserData = new JDBCuser();
@@ -95,6 +95,8 @@ public class CreateAccount {
                 } else {
                     System.out.println("User With that name Already exist");
                 }
+                createAccount.dispose();
+                new HomePage();
 
 
 
@@ -107,6 +109,7 @@ public class CreateAccount {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                createAccount.dispose();
                 new LoginPage();
             }
         });

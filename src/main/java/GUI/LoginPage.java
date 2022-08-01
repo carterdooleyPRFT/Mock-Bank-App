@@ -29,6 +29,7 @@ public class LoginPage {
                 Boolean passed = loginUser.loginUser(loginUserName, loginPassword);
 
                 if (passed == true) {
+                    loginPage.dispose();
                      new LoggedInHome(loginUserName);
 
                 }
@@ -39,7 +40,9 @@ public class LoginPage {
 
         home.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
+                loginPage.dispose();
                 new HomePage();
             }
         });
