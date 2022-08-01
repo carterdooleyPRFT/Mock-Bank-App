@@ -26,9 +26,9 @@ public class LoginPage {
                 String loginPassword = String.valueOf(password.getPassword());
 
                 JDBCuser loginUser = new JDBCuser();
-                Boolean passed = loginUser.loginUser(loginUserName, loginPassword);
+                boolean passed = loginUser.loginUser(loginUserName, loginPassword);
 
-                if (passed == true) {
+                if (passed) {
                     loginPage.dispose();
                      new LoggedInHome(loginUserName);
 

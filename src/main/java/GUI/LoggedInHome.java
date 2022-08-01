@@ -18,6 +18,7 @@ public class LoggedInHome {
 
 
 //Admin Log In: username = dual password = kimjim
+
     public LoggedInHome(String username) {
         if (username.equals("dual")){
             new Applicationconfigadmin();

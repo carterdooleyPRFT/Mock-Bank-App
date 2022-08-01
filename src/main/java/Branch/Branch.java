@@ -46,8 +46,8 @@ public class Branch {
     public ArrayList<String> getUsersNames() {
         ArrayList<String> usersNamesList = new ArrayList<String>();
         String userName;
-        for (int i = 0; i < usersList.size(); i++) {
-            userName = usersList.get(i).getUserName();
+        for (User user : usersList) {
+            userName = user.getUserName();
             usersNamesList.add(userName);
         }
         System.out.println(usersNamesList);
@@ -59,8 +59,6 @@ public class Branch {
         for (int i = 0; i < usersList.size(); i++) {
             if (usersList.get(i).getUserName().equalsIgnoreCase(userName)) {
                 return usersList.get(i);
-            } else {
-                continue;
             }
         }
         System.out.println("User " + userName + " not found");

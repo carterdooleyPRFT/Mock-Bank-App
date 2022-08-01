@@ -128,8 +128,8 @@ public class CreateAccount {
         createAccount.add(createPassword);
         createAccount.add(initialTransaction);
         createAccount.add(branchChoice);
-        for (int i = 0; i < branches.size(); i++){
-            JLabel names = new JLabel(branches.get(i));
+        for (String branch : branches) {
+            JLabel names = new JLabel(branch);
             createAccount.add(names);
         }
 
