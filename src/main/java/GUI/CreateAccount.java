@@ -61,8 +61,8 @@ public class CreateAccount {
 
 
                 int conditioner = 0;
-                for (int i = 0; i < finalBranches.size(); i++) {
-                    if (finalBranches.get(i).trim().equals(branchName.trim())){
+                for (String finalBranch : finalBranches) {
+                    if (finalBranch.trim().equals(branchName.trim())) {
                         System.out.println("Successfully Found Branch " + branchName);
                         conditioner = 1;
                         break;

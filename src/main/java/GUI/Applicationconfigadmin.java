@@ -45,6 +45,8 @@ public class Applicationconfigadmin {
         bankApp.setVisible(true);
 
 
+
+
     }
 
 }

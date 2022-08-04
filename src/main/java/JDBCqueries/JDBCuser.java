@@ -262,6 +262,63 @@ public class JDBCuser {
         return 0;
     }
 
+    public void updateAccountBalance(String username, double newBalance) {
+
+
+        try {
+            Properties prop = new Properties();
+
+            String dbPropertiesFile = "src/main/JDBC/DBconfig.properties";
+
+            FileReader fileReader = new FileReader(dbPropertiesFile);
+
+            prop.load(fileReader);
+
+
+            String dbDriverClass = prop.getProperty("db.driver.class");
+
+            String dbConnUrl = prop.getProperty("db.conn.url");
+
+            String dbUserName = prop.getProperty("db.username");
+
+            String dbPassword = prop.getProperty("db.password");
+
+            if (!"".equals(dbDriverClass) && !"".equals(dbConnUrl)) {
+                /* Register jdbc driver class. */
+                Class.forName(dbDriverClass);
+
+                // Get database connection object.
+                Connection dbConn = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
+
+                // Get dtabase meta data.
+                DatabaseMetaData dbMetaData = dbConn.getMetaData();
+
+                // Get database name.
+                String dbName = dbMetaData.getDatabaseProductName();
+
+                // Get database version.
+                String dbVersion = dbMetaData.getDatabaseProductVersion();
+
+                System.out.println("Database Name : " + dbName);
+
+                System.out.println("Database Version : " + dbVersion);
+
+                PreparedStatement statement = dbConn.prepareStatement("UPDATE users SET account_total = '" + newBalance + "' WHERE user_name =  '" + username.trim() + "'");
+                statement.execute();
+
+
+
+
+
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+
+    }
+
 
 
 

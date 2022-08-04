@@ -12,18 +12,28 @@ public class LoggedInHome {
 
     final JFrame bankApp = new JFrame("Banking");
     JLabel success = new JLabel("Successfully Logged In");
-    JLabel successAdmin = new JLabel("Admin Successfully Logged In");
-
+    //Need functionality
+    JButton deposit = new JButton("Deposit");
+    JButton withdrawal = new JButton();
 
 
 
 //Admin Log In: username = dual password = kimjim
 
-    public LoggedInHome(String username) {
+    public LoggedInHome(final String username) {
         if (username.equals("dual")){
             new Applicationconfigadmin();
 
         } else {
+
+
+            deposit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new loggedInDepsot().createDepositPage(username);
+                    bankApp.dispose();
+                }
+            });
 
             JLabel name = new JLabel(username);
             double accountBalance = new JDBCuser().getAccountBalance(username);
@@ -35,6 +45,7 @@ public class LoggedInHome {
             bankApp.add(name);
             bankApp.add(success);
             bankApp.add(balanceLabel);
+            bankApp.add(deposit);
             bankApp.setLayout(new FlowLayout());
             bankApp.setVisible(true);
         }

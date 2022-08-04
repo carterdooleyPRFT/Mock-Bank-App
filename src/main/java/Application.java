@@ -20,8 +20,8 @@ public class Application {
         JDBCuser seedUser = new JDBCuser();
         JDBCbranches seedBranches = new JDBCbranches();
 
-        seedBranches.createBranchesTable();
-        seedUser.createUserTable();
+//        seedBranches.createBranchesTable();
+//        seedUser.createUserTable();
 //        seedBranches.insertBranches("Section 704", 70401);
 //        seedBranches.insertBranches("Section 705", 70592);
 //        seedBranches.insertBranches("Section 701", 70192);
